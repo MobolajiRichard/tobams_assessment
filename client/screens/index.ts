@@ -9,3 +9,5 @@ export {
     Home,
     Menu
 }
+
+//distributionUrl=https\://services.gradle.org/distributions/gradle-6.3-all.zip

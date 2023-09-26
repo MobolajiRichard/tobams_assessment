@@ -1,25 +1,25 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import {FC} from 'react';
 import {ButtonProps} from '../types';
 import {COLORS} from '../constant';
 
 const Button : FC<ButtonProps> = ({variant, title}) => {
   return (
-    <View
+    <Pressable
       style={[
         styles.container,
         {
-          backgroungColor:
+          backgroundColor:
             variant === 'contained' ? COLORS.primary : COLORS.background,
         },
       ]}>
       <Text
-        style={{
+        style={[styles.text, {
           color: variant === 'contained' ? COLORS.white : COLORS.primary,
-        }}>
+        }]}>
         {title}
       </Text>
-    </View>
+    </Pressable>
   );
 };
 
@@ -29,7 +29,14 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth: 1,
     borderColor: COLORS.primary,
+    alignItems:'center',
+    justifyContent:"center",
+    marginBottom:20
   },
+  text:{
+    fontSize:14,
+    fontFamily:'Poppins-Medium'
+  }
 });
 
 export default Button;

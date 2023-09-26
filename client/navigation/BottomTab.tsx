@@ -1,11 +1,12 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Pressable } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Home, Cart, Menu} from "../screens";
 import { RouteStackParamList } from "../types";
 import { COLORS } from "../constant";
-import { HomeIcon, ShoppingBagIcon, Squares2X2Icon } from "react-native-heroicons/outline";
+import { ChevronLeftIcon, HomeIcon, ShoppingBagIcon, Squares2X2Icon } from "react-native-heroicons/outline";
 import { HomeIcon as HomeActive, ShoppingBagIcon as ShoppingBagActive, Squares2X2Icon as SquaresActive} from "react-native-heroicons/solid";
 import { IMAGES } from "../assets/images";
+import { Back } from "../components";
 
 const Tab = createBottomTabNavigator<RouteStackParamList>();
 
@@ -64,6 +65,11 @@ const BottomTab = () => {
         name="cart"
         component={Cart}
         options={{
+          headerShown:true,
+          headerStyle:{backgroundColor:COLORS.background},
+          headerTitleStyle:{ fontFamily:'Poppins-Medium', fontSize:14, color:COLORS.black},
+          headerTitle:'Cart',
+          headerTitleContainerStyle:{paddingBottom:5},
           tabBarLabel: ({ focused }) => (
             <Text
               style={{
@@ -82,6 +88,7 @@ const BottomTab = () => {
               color={focused ? "tomato" : '#858585'}
             />
           ),
+          headerLeft: () => <Back/>,
         }}
       />
       <Tab.Screen
