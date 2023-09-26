@@ -1,4 +1,5 @@
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RouteProp } from "@react-navigation/native";
+import { NativeStackNavigationProp, NativeStackScreenProps } from "@react-navigation/native-stack";
 import { ImageSourcePropType} from "react-native/types";
 
 export type RouteStackParamList = {
@@ -14,7 +15,7 @@ export type RouteStackParamList = {
 export type ButtonProps = {
     variant:string,
     title:string,
-    onPress: () => void
+    onPress: () => void | undefined
 }
 
 export type ProductListProp = {
@@ -26,6 +27,16 @@ export type ProductListProp = {
         desc:string,
         count:number
 }
+
+export type ProductListProp2 = {
+    id:number | number,
+    name:string | number,
+    pka:string | number,
+    price: number | number,
+    image:ImageSourcePropType | number,
+    desc:string | number,
+    count:number
+}
 export type NavigationProp = {
-    navigation : NativeStackNavigationProp<RouteStackParamList>,
+    navigation : NativeStackScreenProps<RouteStackParamList>,
     }

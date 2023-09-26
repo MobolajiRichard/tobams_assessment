@@ -7,7 +7,6 @@ import {
   Image,
   Dimensions,
   ScrollView,
-  Alert,
 } from 'react-native';
 import {COLORS} from '../constant';
 import {
@@ -15,40 +14,53 @@ import {
   MinusIcon,
   PlusIcon,
 } from 'react-native-heroicons/outline';
-import {IMAGES} from '../assets/images';
 import {ActionButton, AccordionItem, Back} from '../components';
-import { FC, useMemo, useState } from 'react';
-import { useProductContext } from '../context';
-import { productList } from '../constant';
-import { NavigationProp } from '../types';
+import {FC, useState} from 'react';
+import {useProductContext} from '../context';
+import {productList} from '../constant';
+import { ProductListProp, RouteStackParamList} from '../types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const ProductDetails:FC<NavigationProp> = ({navigation, route}) => {
+const ProductDetails: FC<NativeStackScreenProps<RouteStackParamList, 'product'>> = ({navigation, route}) => {
+  //target product id passed in the route
+  const productId = route.params.id;
 
-  const productId = route.params.id
-  const [product, setProduct] = useState(productList.find((p) => p.id === productId))
-  const {selectedProducts, setSelectedProducts} = useProductContext()
+  //target product retrieved by id
+  const [product, setProduct] = useState<ProductListProp>(
+    productList.find(p => p.id.toString() === productId)!,
+  );
 
-  const [productCount, setProductCount] = useState(1)
+  //get all products stored in cart and the hanler to update it
+  const {setSelectedProducts} = useProductContext();
 
+  //number of product
+  const [productCount, setProductCount] = useState(1);
+
+  // increase the amount of product to be added to cart
   const addProduct = () => {
-    setProductCount(count => count + 1)
-    setProduct((p) => {
+    setProductCount(count => count + 1);
+    setProduct(p => {
       return {
-        ...p, count: productCount + 1
-      }
-    })
-  }
-  const subtractProduct = () => {
-    if(productCount > 1){
-      setProductCount(count => count - 1)
-      setProduct((p) => {
-        return {
-          ...p, count: productCount - 1
-        }
-      })
-    }
-  }
+        ...p,
+        count: productCount + 1,
+      };
+    });
+  };
 
+  // decrease the amount of product to be added to cart
+  const subtractProduct = () => {
+    if (productCount > 1) {
+      setProductCount(count => count - 1);
+      setProduct(p => {
+        return {
+          ...p,
+          count: productCount - 1,
+        };
+      });
+    }
+  };
+
+  //accordion list item
   const accordionItems = [
     'Ingredients',
     'Nutritional Information',
@@ -58,37 +70,37 @@ const ProductDetails:FC<NavigationProp> = ({navigation, route}) => {
     'Extra',
   ];
 
+  //add product to cart
   const addToCart = () => {
-    setSelectedProducts((products) => {
-      const productExists = products.find((p) => p.id === product?.id)
-      if(productExists){
-        let remainingProducts = products.filter((p) => p.id !== product?.id)
-        return [
-          ...remainingProducts, product
-        ]
-      }else{
-        return [
-          ...products, product
-        ]
-      }  
-    })
-    alert('Product added succesfully')
-  }
-  console.log({selectedProducts})
+    setSelectedProducts(products => {
+      //check if product has previously been added to cart
+      const productExists = products.find(p => p.id === product?.id);
+      //if it has been previously selected update it with the new one
+      //else just add it to the selected
+      if (productExists) {
+        let remainingProducts = products.filter(p => p.id !== product?.id);
+        return [...remainingProducts, product];
+      } else {
+        return [...products, product];
+      }
+    });
+
+    //display a successful message
+    alert('Product added succesfully');
+  };
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor:COLORS.background}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: COLORS.background}}>
       <ScrollView
-      showsVerticalScrollIndicator={false}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={{alignItems: 'center'}}
         style={styles.container}>
         {/* navigation */}
-        <View style={{alignItems:'flex-start', width:'100%'}}>
-        <Pressable onPress={() => navigation.goBack()} style={styles.back}>
-          <ChevronLeftIcon color={COLORS.black} size={20} />
-        </Pressable>
+        <View style={{alignItems: 'flex-start', width: '100%'}}>
+          <Pressable onPress={() => navigation.goBack()} style={styles.back}>
+            <ChevronLeftIcon color={COLORS.black} size={20} />
+          </Pressable>
         </View>
-     
 
         {/* product image */}
         <View style={styles.imageContainer}>
@@ -108,10 +120,10 @@ const ProductDetails:FC<NavigationProp> = ({navigation, route}) => {
 
         {/*product  details  */}
         <View style={styles.details}>
-        <View style={styles.totalTextContainer}>
-        <Text style={styles.totalText}>{product?.name}</Text>
-        <Text style={styles.totalText2}>{product?.pka}</Text>
-        </View>
+          <View style={styles.totalTextContainer}>
+            <Text style={styles.totalText}>{product?.name}</Text>
+            <Text style={styles.totalText2}>{product?.pka}</Text>
+          </View>
           <Text style={[styles.name, {color: COLORS.primary}]}>
             &pound;{product?.price}
           </Text>
@@ -134,18 +146,29 @@ const ProductDetails:FC<NavigationProp> = ({navigation, route}) => {
 
         {/* product count  */}
         <View style={styles.countContainer}>
-          <Pressable onPress={subtractProduct} style={[styles.back, {marginBottom: 0}]}>
-            <MinusIcon color={ productCount < 2 ? '#e1e5e9' : COLORS.black} size={15} />
+          <Pressable
+            onPress={subtractProduct}
+            style={[styles.back, {marginBottom: 0}]}>
+            <MinusIcon
+              color={productCount < 2 ? '#e1e5e9' : COLORS.black}
+              size={15}
+            />
           </Pressable>
           <Text style={styles.count}>{productCount}</Text>
-          <Pressable onPress={addProduct} style={[styles.back, {marginBottom: 0}]}>
+          <Pressable
+            onPress={addProduct}
+            style={[styles.back, {marginBottom: 0}]}>
             <PlusIcon color={COLORS.black} size={15} />
           </Pressable>
         </View>
 
         <View style={styles.buttons}>
-          <ActionButton onPress={addToCart} variant="contained" title="Add to Cart" />
-          <ActionButton variant="outlined" title="Subscribe to a Plan" />
+          <ActionButton
+            onPress={addToCart}
+            variant="contained"
+            title="Add to Cart"
+          />
+          <ActionButton onPress={() => alert('subscribe')} variant="outlined" title="Subscribe to a Plan" />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -218,39 +241,39 @@ const styles = StyleSheet.create({
   },
   accordion: {
     width: '100%',
-    marginTop:40,
-    marginBottom:10,
-    borderTopColor:'#e1e5e9',
-    borderTopWidth:1
+    marginTop: 40,
+    marginBottom: 10,
+    borderTopColor: '#e1e5e9',
+    borderTopWidth: 1,
   },
   buttons: {
     width: '100%',
   },
-  totalText:{
-    fontFamily:'Poppins-Medium',
-    color:COLORS.black,
-    fontSize:14
-},
-totalText2:{
-    fontFamily:'Poppins-Regular',
-    color:COLORS.grey,
-    fontSize:14,
-    marginLeft:4
-},
-totalTextContainer:{
-  flexDirection:'row'
-},
-back: {
-  width: 36,
-  height: 36,
-  backgroundColor: COLORS.white,
-  borderRadius: 8,
-  // borderWidth: 1,
-  alignItems: 'center',
-  justifyContent: 'center',
-  // borderColor: '#e1e5e9',
-  marginBottom:5
-},
+  totalText: {
+    fontFamily: 'Poppins-Medium',
+    color: COLORS.black,
+    fontSize: 14,
+  },
+  totalText2: {
+    fontFamily: 'Poppins-Regular',
+    color: COLORS.grey,
+    fontSize: 14,
+    marginLeft: 4,
+  },
+  totalTextContainer: {
+    flexDirection: 'row',
+  },
+  back: {
+    width: 36,
+    height: 36,
+    backgroundColor: COLORS.white,
+    borderRadius: 8,
+    // borderWidth: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    // borderColor: '#e1e5e9',
+    marginBottom: 5,
+  },
 });
 
 export default ProductDetails;

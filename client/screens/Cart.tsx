@@ -3,24 +3,29 @@ import {
   Text,
   View,
   SafeAreaView,
-  Pressable,
   FlatList,
 } from 'react-native';
 import React, {FC, useMemo} from 'react';
 import {COLORS} from '../constant';
 import {ActionButton, CartCard} from '../components';
-import {ChevronLeftIcon} from 'react-native-heroicons/outline';
 import {useProductContext} from '../context';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {RouteStackParamList, NavigationProp} from '../types';
+import { NavigationProp} from '../types';
 
 const Cart: FC<NavigationProp> = ({navigation}) => {
+
+  //get all products stored in cart and the hanler to update it
   const {selectedProducts, setSelectedProducts} = useProductContext();
 
+  //calcultae the total price of all selected products
   const totalPrice = useMemo(() => {
     return selectedProducts.reduce((a, b) => a + b.price * b.count, 0);
   }, [selectedProducts]);
 
+  const totalItem = useMemo(() => {
+    return selectedProducts.reduce((a, b) => a + b.count, 0);
+  }, [selectedProducts]);
+
+  //on successful checkout empty the selcted product array and go back to menu
   const onCheckout = () => {
     if (totalPrice > 0) {
       alert(
@@ -60,7 +65,7 @@ const Cart: FC<NavigationProp> = ({navigation}) => {
           <View style={styles.totalTextContainer}>
             <Text style={styles.totalText}>Total</Text>
             <Text style={styles.totalText2}>
-              ({selectedProducts?.length} items)
+              ({totalItem} items)
             </Text>
           </View>
           <Text style={styles.totalText}>&pound;{totalPrice}</Text>

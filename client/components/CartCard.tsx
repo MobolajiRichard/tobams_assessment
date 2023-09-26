@@ -11,9 +11,14 @@ type CardProp = {
 }
 
 const CartCard:FC<CardProp> = ({product}) => {
-  const {selectedProducts, setSelectedProducts} = useProductContext()
+
+  //handler to update the products added to cart
+  const {setSelectedProducts} = useProductContext()
+
+  //product count
   const [productCount, setProductCount] = useState<number>(product.count)
 
+  //on addition press, add the count for the product by 1
   const addProduct = () => {
     setProductCount(count => count + 1)
     setSelectedProducts((products) => {
@@ -24,6 +29,8 @@ const CartCard:FC<CardProp> = ({product}) => {
         ]
     })
   }
+
+  //on subtract press, deduct the count for the product by 1
   const subtractProduct = () => {
     if(productCount > 1){
       setProductCount(count => count - 1)
@@ -37,6 +44,7 @@ const CartCard:FC<CardProp> = ({product}) => {
     }
   }
 
+  //on delete remove the products from the context store
   const onProductDelete = () => {
     setSelectedProducts((products) => {
       const otherProduct = products.filter((p) => p.id !== product?.id)
@@ -47,7 +55,6 @@ const CartCard:FC<CardProp> = ({product}) => {
 
   }
 
-  console.log({selectedProducts})
   return (
     <View style={styles.container}>
       <View style={styles.image}>

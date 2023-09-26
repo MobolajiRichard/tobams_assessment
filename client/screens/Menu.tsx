@@ -8,9 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import {COLORS} from '../constant';
-import {
-  MagnifyingGlassIcon,
-} from 'react-native-heroicons/outline';
+import {MagnifyingGlassIcon} from 'react-native-heroicons/outline';
 import {ProductCard} from '../components';
 import {productList} from '../constant';
 

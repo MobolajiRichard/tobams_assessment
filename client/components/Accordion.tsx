@@ -10,12 +10,15 @@ type AccordionItemPros = PropsWithChildren<{
 }>;
 
 function AccordionItem({title}: AccordionItemPros): JSX.Element {
+  //expanded state for the accordion header
   const [expanded, setExpanded] = useState(false);
 
+  //open and close the accordion
   function toggleItem() {
     setExpanded(prev => !prev);
   }
 
+  //body to be displayed based on tthe expanded state
   const body = (
     <View style={styles.accordBody}>
       <Text style={styles.accordBodyText}>

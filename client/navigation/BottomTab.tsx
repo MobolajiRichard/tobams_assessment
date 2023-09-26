@@ -70,6 +70,7 @@ const BottomTab = () => {
           headerTitleStyle:{ fontFamily:'Poppins-Medium', fontSize:14, color:COLORS.black},
           headerTitle:'Cart',
           headerTitleContainerStyle:{paddingBottom:5},
+          headerTitleAlign:'center',
           tabBarLabel: ({ focused }) => (
             <Text
               style={{
