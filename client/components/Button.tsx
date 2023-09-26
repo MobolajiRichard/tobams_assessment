@@ -3,9 +3,10 @@ import {FC} from 'react';
 import {ButtonProps} from '../types';
 import {COLORS} from '../constant';
 
-const Button : FC<ButtonProps> = ({variant, title}) => {
+const Button: FC<ButtonProps> = ({variant, title, onPress}) => {
   return (
     <Pressable
+      onPress={onPress}
       style={[
         styles.container,
         {
@@ -14,9 +15,12 @@ const Button : FC<ButtonProps> = ({variant, title}) => {
         },
       ]}>
       <Text
-        style={[styles.text, {
-          color: variant === 'contained' ? COLORS.white : COLORS.primary,
-        }]}>
+        style={[
+          styles.text,
+          {
+            color: variant === 'contained' ? COLORS.white : COLORS.primary,
+          },
+        ]}>
         {title}
       </Text>
     </Pressable>
@@ -29,14 +33,14 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     borderWidth: 1,
     borderColor: COLORS.primary,
-    alignItems:'center',
-    justifyContent:"center",
-    marginBottom:20
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
   },
-  text:{
-    fontSize:14,
-    fontFamily:'Poppins-Medium'
-  }
+  text: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Medium',
+  },
 });
 
 export default Button;

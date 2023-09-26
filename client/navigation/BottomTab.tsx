@@ -1,6 +1,6 @@
 import { View, Text, Image, Pressable } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Home, Cart, Menu} from "../screens";
+import { Home, Cart, Menu, Profile} from "../screens";
 import { RouteStackParamList } from "../types";
 import { COLORS } from "../constant";
 import { ChevronLeftIcon, HomeIcon, ShoppingBagIcon, Squares2X2Icon } from "react-native-heroicons/outline";
@@ -93,7 +93,7 @@ const BottomTab = () => {
       />
       <Tab.Screen
         name="profile"
-        component={Cart}
+        component={Profile}
         options={{
           tabBarLabel: ({ focused }) => (
             <Text

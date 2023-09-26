@@ -1,39 +1,76 @@
 import { StyleSheet, Text, View , Image, Pressable, Dimensions} from 'react-native'
-import React, { useState } from 'react'
+import React, { FC, useState } from 'react'
 import { IMAGES } from '../assets/images'
 import { MinusIcon, PlusIcon, TrashIcon } from 'react-native-heroicons/outline'
 import { COLORS } from '../constant'
+import { useProductContext } from '../context'
+import { ProductListProp } from '../types'
 
-const CartCard = () => {
-  const [productCount, setProductCount] = useState(1)
+type CardProp = {
+  product:ProductListProp
+}
+
+const CartCard:FC<CardProp> = ({product}) => {
+  const {selectedProducts, setSelectedProducts} = useProductContext()
+  const [productCount, setProductCount] = useState<number>(product.count)
+
   const addProduct = () => {
     setProductCount(count => count + 1)
+    setSelectedProducts((products) => {
+      const otherProduct = products.filter((p) => p.id !== product?.id)
+      const targetProduct = {...product, count:productCount + 1}
+        return [
+          targetProduct, ...otherProduct,
+        ]
+    })
   }
   const subtractProduct = () => {
     if(productCount > 1){
       setProductCount(count => count - 1)
+      setSelectedProducts((products) => {
+        const otherProduct = products.filter((p) => p.id !== product?.id)
+        const targetProduct = {...product, count:productCount - 1}
+          return [
+            ...otherProduct, targetProduct
+          ]
+      })
     }
   }
+
+  const onProductDelete = () => {
+    setSelectedProducts((products) => {
+      const otherProduct = products.filter((p) => p.id !== product?.id)
+        return [
+          ...otherProduct
+        ]
+    })
+
+  }
+
+  console.log({selectedProducts})
   return (
     <View style={styles.container}>
       <View style={styles.image}>
-        <Image source={IMAGES.chicken}/>
+        <Image source={product?.image}/>
       </View>
       <View style={styles.details}>
         <View style={styles.totalTextContainer}>
-        <Text style={styles.totalText}>Asaro</Text>
-        <Text style={styles.totalText2}>(Yam Porridge)</Text>
+        <Text style={styles.totalText}>{product?.name}</Text>
+        <Text style={styles.totalText2}>{product?.pka}</Text>
         </View>
         
-        <Text style={styles.price}>&pound;90</Text>
+        <Text style={styles.price}>&pound;{product?.price * product?.count}</Text>
+        <Pressable onPress={onProductDelete}>
         <TrashIcon color={COLORS.black}/>
+
+        </Pressable>
       </View>
        {/* product count  */}
        <View style={styles.countContainer}>
           <Pressable onPress={subtractProduct} style={[styles.back, {marginBottom: 0}]}>
             <MinusIcon color={COLORS.black} size={15} />
           </Pressable>
-          <Text style={styles.count}>{productCount}</Text>
+          <Text style={styles.count}>{product?.count}</Text>
           <Pressable onPress={addProduct} style={[styles.back, {marginBottom: 0}]}>
             <PlusIcon color={COLORS.black} size={15} />
           </Pressable>

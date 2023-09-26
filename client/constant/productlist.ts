@@ -7,7 +7,8 @@ export const productList = [
         pka:'(Puff Puff)',
         price:30,
         image:IMAGES.donut,
-        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more'
+        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more',
+        count:1
     },
     {
         id:2,
@@ -15,7 +16,8 @@ export const productList = [
         pka:'',
         price:30,
         image:IMAGES.efo,
-        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more'
+        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more',
+        count:1
     },
     {
         id:3,
@@ -23,7 +25,8 @@ export const productList = [
         pka:'(Yam Porridge)',
         price:30,
         image:IMAGES.asaro,
-        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more'
+        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more',
+        count:1
     },
     {
         id:4,
@@ -31,7 +34,8 @@ export const productList = [
         pka:'',
         price:30,
         image:IMAGES.efo,
-        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more'
+        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more',
+        count:1
     },
     {
         id:5,
@@ -39,7 +43,8 @@ export const productList = [
         pka:'(Puff Puff)',
         price:30,
         image:IMAGES.donut,
-        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more'
+        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more',
+        count:1
     },
     {
         id:6,
@@ -47,7 +52,8 @@ export const productList = [
         pka:'',
         price:30,
         image:IMAGES.efo,
-        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more'
+        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more',
+        count:1
     },
     {
         id:7,
@@ -55,7 +61,8 @@ export const productList = [
         pka:'(Yam Porridge)',
         price:30,
         image:IMAGES.asaro,
-        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more'
+        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more',
+        count:1
     },
     {
         id:8,
@@ -63,6 +70,7 @@ export const productList = [
         pka:'',
         price:30,
         image:IMAGES.efo,
-        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more'
+        desc:'Rare Eat Puff Puff Mix can be made into a deep-fried dough. They are made from yeast dough, shaped into balls and deep-fried until golden brown. It has a doughnut-like texture but slightly o....Read more',
+        count:1
     },
 ]

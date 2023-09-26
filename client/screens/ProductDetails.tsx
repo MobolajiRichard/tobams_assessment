@@ -7,6 +7,7 @@ import {
   Image,
   Dimensions,
   ScrollView,
+  Alert,
 } from 'react-native';
 import {COLORS} from '../constant';
 import {
@@ -15,19 +16,36 @@ import {
   PlusIcon,
 } from 'react-native-heroicons/outline';
 import {IMAGES} from '../assets/images';
-import {ActionButton, AccordionItem} from '../components';
-import { useState } from 'react';
+import {ActionButton, AccordionItem, Back} from '../components';
+import { FC, useMemo, useState } from 'react';
+import { useProductContext } from '../context';
+import { productList } from '../constant';
+import { NavigationProp } from '../types';
 
-const ProductDetails = ({navigation}) => {
+const ProductDetails:FC<NavigationProp> = ({navigation, route}) => {
+
+  const productId = route.params.id
+  const [product, setProduct] = useState(productList.find((p) => p.id === productId))
+  const {selectedProducts, setSelectedProducts} = useProductContext()
 
   const [productCount, setProductCount] = useState(1)
 
   const addProduct = () => {
     setProductCount(count => count + 1)
+    setProduct((p) => {
+      return {
+        ...p, count: productCount + 1
+      }
+    })
   }
   const subtractProduct = () => {
     if(productCount > 1){
       setProductCount(count => count - 1)
+      setProduct((p) => {
+        return {
+          ...p, count: productCount - 1
+        }
+      })
     }
   }
 
@@ -39,8 +57,27 @@ const ProductDetails = ({navigation}) => {
     'Storage Information',
     'Extra',
   ];
+
+  const addToCart = () => {
+    setSelectedProducts((products) => {
+      const productExists = products.find((p) => p.id === product?.id)
+      if(productExists){
+        let remainingProducts = products.filter((p) => p.id !== product?.id)
+        return [
+          ...remainingProducts, product
+        ]
+      }else{
+        return [
+          ...products, product
+        ]
+      }  
+    })
+    alert('Product added succesfully')
+  }
+  console.log({selectedProducts})
+
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor:COLORS.background}}>
       <ScrollView
       showsVerticalScrollIndicator={false}
         contentContainerStyle={{alignItems: 'center'}}
@@ -57,7 +94,7 @@ const ProductDetails = ({navigation}) => {
         <View style={styles.imageContainer}>
           <Image
             style={styles.image}
-            source={IMAGES.asaro}
+            source={product?.image}
             resizeMode="cover"
           />
         </View>
@@ -71,9 +108,12 @@ const ProductDetails = ({navigation}) => {
 
         {/*product  details  */}
         <View style={styles.details}>
-          <Text style={styles.name}>African Doughnut Mix (Puff Puff)</Text>
+        <View style={styles.totalTextContainer}>
+        <Text style={styles.totalText}>{product?.name}</Text>
+        <Text style={styles.totalText2}>{product?.pka}</Text>
+        </View>
           <Text style={[styles.name, {color: COLORS.primary}]}>
-            &pound;3.99
+            &pound;{product?.price}
           </Text>
         </View>
 
@@ -104,7 +144,7 @@ const ProductDetails = ({navigation}) => {
         </View>
 
         <View style={styles.buttons}>
-          <ActionButton variant="contained" title="Add to Cart" />
+          <ActionButton onPress={addToCart} variant="contained" title="Add to Cart" />
           <ActionButton variant="outlined" title="Subscribe to a Plan" />
         </View>
       </ScrollView>
@@ -186,6 +226,31 @@ const styles = StyleSheet.create({
   buttons: {
     width: '100%',
   },
+  totalText:{
+    fontFamily:'Poppins-Medium',
+    color:COLORS.black,
+    fontSize:14
+},
+totalText2:{
+    fontFamily:'Poppins-Regular',
+    color:COLORS.grey,
+    fontSize:14,
+    marginLeft:4
+},
+totalTextContainer:{
+  flexDirection:'row'
+},
+back: {
+  width: 36,
+  height: 36,
+  backgroundColor: COLORS.white,
+  borderRadius: 8,
+  // borderWidth: 1,
+  alignItems: 'center',
+  justifyContent: 'center',
+  // borderColor: '#e1e5e9',
+  marginBottom:5
+},
 });
 
 export default ProductDetails;

@@ -1,13 +1,19 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
-import React from 'react'
+import React, { FC } from 'react'
 import { COLORS } from '../constant'
 import { IMAGES } from '../assets/images'
 import {HeartIcon, ShoppingBagIcon} from 'react-native-heroicons/outline'
 import { useNavigation } from '@react-navigation/native'
+import { ProductListProp, RouteStackParamList } from '../types'
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 
-const ProductCard = ({productInfo}) => {
-  const navigation = useNavigation()
+type CardProp = {
+  productInfo:ProductListProp
+}
+
+const ProductCard: FC<CardProp> = ({productInfo}) => {
+  const navigation = useNavigation<NativeStackNavigationProp<RouteStackParamList>>()
   return (
     <View style={styles.container}>
       <View style={styles.innerContainer}>
@@ -22,7 +28,7 @@ const ProductCard = ({productInfo}) => {
         </View>
         <Text style={styles.price}>&pound;{productInfo?.price}</Text>
       </View>
-      <Pressable onPress={() => navigation.navigate('product', {id:productInfo.id})} style={styles.button}>
+      <Pressable onPress={() => navigation.navigate('product', {id:productInfo.id.toString()})} style={styles.button}>
         <ShoppingBagIcon color={COLORS.white}/>
         <Text style={styles.addToCart}>Add to Cart</Text>
       </Pressable> 
