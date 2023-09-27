@@ -22,11 +22,11 @@ const CartCard:FC<CardProp> = ({product}) => {
   const addProduct = () => {
     setProductCount(count => count + 1)
     setSelectedProducts((products) => {
-      const otherProduct = products.filter((p) => p.id !== product?.id)
+      const updatedProduct = products.filter((p) => p.id !== product?.id)
       const targetProduct = {...product, count:productCount + 1}
-        return [
-          targetProduct, ...otherProduct,
-        ]
+      const targetProductIndex = products.findIndex((p) => p.id === product.id)
+      updatedProduct.splice(targetProductIndex, 0, targetProduct)
+        return updatedProduct
     })
   }
 
@@ -35,11 +35,11 @@ const CartCard:FC<CardProp> = ({product}) => {
     if(productCount > 1){
       setProductCount(count => count - 1)
       setSelectedProducts((products) => {
-        const otherProduct = products.filter((p) => p.id !== product?.id)
+        const updatedProduct = products.filter((p) => p.id !== product?.id)
         const targetProduct = {...product, count:productCount - 1}
-          return [
-            ...otherProduct, targetProduct
-          ]
+        const targetProductIndex = products.findIndex((p) => p.id === product.id)
+        updatedProduct.splice(targetProductIndex, 0, targetProduct)
+          return updatedProduct
       })
     }
   }
@@ -64,12 +64,12 @@ const CartCard:FC<CardProp> = ({product}) => {
         <View style={styles.totalTextContainer}>
         <Text style={styles.totalText}>{product?.name}</Text>
         <Text style={styles.totalText2}>{product?.pka}</Text>
+
         </View>
         
         <Text style={styles.price}>&pound;{product?.price * product?.count}</Text>
         <Pressable onPress={onProductDelete}>
         <TrashIcon color={COLORS.black}/>
-
         </Pressable>
       </View>
        {/* product count  */}

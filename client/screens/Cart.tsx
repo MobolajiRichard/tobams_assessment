@@ -9,9 +9,10 @@ import React, {FC, useMemo} from 'react';
 import {COLORS} from '../constant';
 import {ActionButton, CartCard} from '../components';
 import {useProductContext} from '../context';
-import { NavigationProp} from '../types';
+import { RouteStackParamList} from '../types';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const Cart: FC<NavigationProp> = ({navigation}) => {
+const Cart: FC<NativeStackScreenProps<RouteStackParamList, 'cart'>> = ({navigation}) => {
 
   //get all products stored in cart and the hanler to update it
   const {selectedProducts, setSelectedProducts} = useProductContext();
@@ -41,6 +42,7 @@ const Cart: FC<NavigationProp> = ({navigation}) => {
   return (
     <SafeAreaView style={{flex: 1}}>
       <View style={styles.container}>
+        {/* error message to display if no item has been selected */}
         {totalPrice < 1 && (
           <View style={styles.error}>
             <Text style={styles.errorText}>Unable to Checkout</Text>

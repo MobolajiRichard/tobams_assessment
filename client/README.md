@@ -17,6 +17,37 @@ This app was created using React Native Cli, listed below are the dependencies u
    -  "react-native-svg": "13.4.0" - heroicon dependency,
    - "typescript": "4.8.4"  - For Type checking
 
+# Project Strcuture
+
+**assets**
+This contains static data like images, fonts e.t.c
+
+**components**
+This is where the React components lives. Each component will have a directory containing the `.tsx` file, along with a story file, and optionally `.presets`, and `.props` files for larger components. The app will come with some commonly used components like Button.
+
+**constant**
+This is where the themes/colors  and static reusable data lives. 
+
+**context**
+This is the app context provider lives, The context provider allows all the children in the tree to access and update data directly avoiding the concepts of props drilling. 
+
+**ios**
+Automatically IOS boilerplate codes
+
+**navigation**
+This is where the `react-navigation` navigators lives.
+
+**screens**
+This is where the screen components lives. A screen is a React component which will take up the entire screen and be part of the navigation hierarchy. Each screen will have a directory containing the `.tsx` file, along with any assets or other helper files.
+
+
+**types**
+Here lives the static types for the app (Typescript).
+
+
+**app.tsx** This is the entry point to the app. This is where you will find the main App component which renders the rest of the application.
+
+
 # Starting App
 To run app, after succcessfully cloning or downloading the source code on github, run the following code on the terminal:
 (Please a working enviroment is required to successfully run the app)

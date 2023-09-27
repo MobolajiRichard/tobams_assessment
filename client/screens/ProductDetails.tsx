@@ -14,7 +14,7 @@ import {
   MinusIcon,
   PlusIcon,
 } from 'react-native-heroicons/outline';
-import {ActionButton, AccordionItem, Back} from '../components';
+import {ActionButton, AccordionItem } from '../components';
 import {FC, useState} from 'react';
 import {useProductContext} from '../context';
 import {productList} from '../constant';
@@ -93,7 +93,7 @@ const ProductDetails: FC<NativeStackScreenProps<RouteStackParamList, 'product'>>
     <SafeAreaView style={{flex: 1, backgroundColor: COLORS.background}}>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={{alignItems: 'center'}}
+        contentContainerStyle={{alignItems: 'center', paddingBottom:20}}
         style={styles.container}>
         {/* navigation */}
         <View style={{alignItems: 'flex-start', width: '100%'}}>

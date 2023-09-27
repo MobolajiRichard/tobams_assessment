@@ -1,10 +1,11 @@
 import {Dimensions, Text, View, StyleSheet} from 'react-native';
 import {ActionButton} from '../components';
 import {COLORS} from '../constant';
-import { NavigationProp } from '../types';
+import {RouteStackParamList } from '../types';
 import { FC } from 'react';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-const Home:FC<NavigationProp> = ({navigation}) => {
+const Home:FC<NativeStackScreenProps<RouteStackParamList, 'home'>> = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.wrapper}>
